@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: poker-estudio-preflop
+    runtime: static
+    buildCommand: echo 'Visor preflop: sitio estático listo'
+    staticPublishPath: ./public
+    autoDeployTrigger: commit

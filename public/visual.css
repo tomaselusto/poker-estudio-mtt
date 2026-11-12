@@ -1,0 +1,53 @@
+/* Poker Estudio v3 · UX visual para cartas / rango editable */
+.v3-visual-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin:0 0 18px;align-items:start}
+.v3-studio,.v3-range{border:1px solid #34526b;background:linear-gradient(165deg,#12263b 0%,#0e1d2e 100%);border-radius:17px;padding:16px;min-width:0;box-shadow:0 12px 30px #0000001d}
+.v3-sectiontitle{display:flex;align-items:start;justify-content:space-between;gap:10px;margin-bottom:14px}
+.v3-sectiontitle h3{font-size:17px;margin:0 0 4px;color:#edf7ff}.v3-sectiontitle p{font-size:12px;color:#a0b9cb;margin:0;line-height:1.5}
+.v3-version{font-size:10px;letter-spacing:.4px;color:#9ce2c8;background:#1c403d;border:1px solid #37675f;padding:5px 7px;border-radius:7px;white-space:nowrap}
+.v3-mode-toggle{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:0 0 12px;font-size:12px;font-weight:650;color:#b6cddf}
+.v3-mode-toggle button{border:1px solid #44647e;color:#c7dbe8;border-radius:8px;padding:8px 11px;background:#172f43;font-size:12px;cursor:pointer}
+.v3-mode-toggle button.v3-active-mode{background:#2b8875;border-color:#65c6a8;color:#fff}
+.v3-deck-top{display:flex;gap:7px;flex-wrap:wrap;margin:0 0 12px}
+.v3-target{display:flex;align-items:center;flex-direction:column;gap:6px;min-width:108px;flex:1;padding:10px 7px;color:#b9cedd;background:#12293e;border:1px solid #35536e;border-radius:11px;cursor:pointer}
+.v3-target:hover{border-color:#69d1b2}.v3-target.active{background:#1d4c4c;border-color:#69d1b2;box-shadow:inset 0 0 0 1px #5ccdad}
+.v3-target-name{font-weight:750;font-size:12px}.v3-target-cards{display:flex;gap:4px;min-height:31px;justify-content:center;align-items:center}.v3-target-count{font-size:10px;color:#9dbac7}
+.v3-cardface{display:inline-flex;justify-content:center;align-items:center;gap:1px;background:#f7fafc;color:#192738;border:1px solid #d5dce3;padding:4px 5px;font-size:15px;font-weight:850;border-radius:5px;min-width:31px;box-shadow:0 2px 3px #0003}.v3-cardface.red{color:#bc3446}
+.v3-placeholder{color:#6e92aa;font-size:11px}.v3-deckframe,.v3-range-scroll{overflow-x:auto;scrollbar-color:#57788c #12283b;padding-bottom:5px}
+.v3-deck-grid{display:grid;grid-template-columns:repeat(13,minmax(27px,1fr));gap:4px;min-width:425px}
+.v3-cardbtn{border:1px solid #d1d6df;background:#f7f9fd;color:#152237;min-height:42px;padding:5px 2px;border-radius:7px;font-weight:850;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;cursor:pointer;font-size:15px;line-height:1}
+.v3-cardbtn.red{color:#c53649}.v3-cardbtn:hover:not(:disabled){box-shadow:0 0 0 2px #55c3ab inset,0 0 14px #54bd9b66}.v3-cardbtn.selected{background:#8be0c2;border-color:#45bb99;color:#123b34}.v3-cardbtn.selected.red{color:#84233c}
+.v3-cardbtn.used{opacity:.22;cursor:not-allowed;filter:grayscale(.85)}.v3-cardbtn:focus-visible,.v3-rangehand:focus-visible,.v3-target:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.v3-deck-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:13px;flex-wrap:wrap}.v3-hint{font-size:12px;color:#a6c4d8;flex:1}.v3-buttons{display:flex;flex-wrap:wrap;gap:6px}.v3-buttons .secondary-btn{font-size:11px;padding:7px 9px}
+.v3-range-toolbar{display:flex;flex-direction:column;gap:9px;margin-bottom:12px}.v3-presets{display:flex;gap:5px;flex-wrap:wrap}.v3-presets button{color:#bce5dc;background:#1b394a;border:1px solid #446c79;border-radius:9px;font-size:11px;padding:7px 9px;cursor:pointer}.v3-presets button:hover{background:#246e63}.v3-range-toolbar>.v3-buttons{justify-content:flex-end}
+.v3-range-layout{display:grid;grid-template-columns:minmax(0,1fr) 150px;gap:12px;align-items:start}
+.v3-rangegrid{display:grid;grid-template-columns:repeat(13,minmax(25px,1fr));gap:3px;min-width:374px}
+.v3-rangehand{display:flex;flex-direction:column;position:relative;align-items:center;justify-content:center;min-height:31px;background:#182c40;border:1px solid #3d5166;border-radius:5px;color:#8ba7bc;padding:3px 1px;cursor:pointer;overflow:hidden}
+.v3-rangehand.active{background:linear-gradient(0deg,rgba(65,179,135,var(--v3-p)),rgba(65,179,135,calc(var(--v3-p)*.42)));border-color:#64a993;color:#f8fffd}
+.v3-rangehand.exhausted{border-color:#c87878;filter:saturate(.7)}.v3-handname{position:relative;z-index:2;font-size:10px;font-weight:850}.v3-handpct{font-size:8px;position:relative;z-index:2;font-weight:700}
+.v3-range-aside{display:flex;flex-direction:column;gap:9px}.v3-range-stats{display:grid;grid-template-columns:1fr;gap:5px}
+.v3-range-stats>div{display:flex;align-items:baseline;justify-content:space-between;gap:6px;background:#172f42;border:1px solid #2b5064;border-radius:7px;padding:7px 6px}.v3-range-stats small{font-size:10px;color:#a1bece}.v3-range-stats strong{font-size:12px;color:#dff6ed;white-space:nowrap}
+.v3-selected-detail{background:#1d3e4d;border:1px solid #427687;border-radius:9px;padding:10px;font-size:12px;line-height:1.4}.v3-selected-detail strong{font-size:16px}.v3-selected-detail p{margin:4px 0 0;color:#c9dfeb}
+.v3-freqkey{display:flex;gap:5px;flex-wrap:wrap;font-size:9px;color:#bfd5df}.v3-freqkey span{background:#24384b;border:1px solid #40546a;border-radius:5px;padding:4px}
+.v3-freqkey span:nth-child(2){background:#285e51}.v3-freqkey span:nth-child(3){background:#367d65}.v3-freqkey span:nth-child(4){background:#3ca17d}
+.v3-range-status{font-size:10px;line-height:1.45;color:#94aec1}.v3-error{color:#ffc0b7}.v3-warn{color:#e9c185}.v3-ok{color:#a1e1c7}.v3-hidden{display:none!important}
+.v3-manual{margin:12px 0;padding:0 11px;border:1px solid #36566c;border-radius:10px;background:#132a3d}.v3-manual summary{cursor:pointer;font-size:12px;padding:11px 1px;color:#bad7e6;font-weight:700}.v3-manual-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;padding-bottom:12px}.v3-manual-fields .field{min-width:0}.v3-manual-fields .field input,.v3-manual-fields .field textarea{width:100%;padding:8px;background:#0b1a2a;border:1px solid #436079;border-radius:8px;color:#eef6fc}.v3-manual-fields .field textarea{resize:vertical;min-height:83px}.v3-manual-fields .field.full{grid-column:1/-1}
+@media(max-width:1150px){.v3-visual-layout{grid-template-columns:1fr}.v3-range-layout{grid-template-columns:minmax(0,1fr) 190px}.v3-rangegrid{min-width:450px}}
+@media(max-width:650px){.v3-studio,.v3-range{padding:11px}.v3-deck-grid{min-width:394px;gap:3px}.v3-cardbtn{min-height:38px;font-size:13px}.v3-range-layout{grid-template-columns:minmax(0,1fr)}.v3-rangegrid{min-width:384px}.v3-range-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.v3-range-aside{gap:8px}.v3-range-stats>div{display:block}.v3-range-stats strong{display:block;margin-top:3px}.v3-target{min-width:85px}.v3-sectiontitle h3{font-size:15px}.v3-version{font-size:9px}.v3-manual-fields{grid-template-columns:1fr}}
+/* Ajustes de legibilidad para tableros de cartas completos en teléfonos */
+.v3-target-cards{flex-wrap:wrap;max-width:100%}
+@media(max-width:650px){
+ .v3-target{min-width:0;flex:1 1 30%}
+ .v3-deck-top .v3-target:last-child{flex:1 1 100%}
+ .v3-deck-top .v3-target:last-child .v3-target-cards{flex-wrap:nowrap}
+ .v3-deckframe::after{content:'Deslizá para ver todas las cartas →';display:block;font-size:10px;color:#a5bdcc;margin-top:6px}
+ .v3-range-scroll::after{content:'Deslizá para ver la matriz completa →';display:block;font-size:10px;color:#a5bdcc;margin-top:6px}
+}
+
+/* v3.1 · Comodidad táctil y pantalla completa en móvil */
+@media (max-width: 650px) {
+  .v3-cardbtn { min-height: 43px; }
+  .v3-mode-toggle button, .v3-presets button { min-height: 40px; }
+  .v3-target { min-height: 62px; }
+  input, select, textarea { font-size: 16px; } /* evita zoom automático de Safari al enfocar */
+  .wrap { padding-bottom: max(48px, env(safe-area-inset-bottom)); }
+}
