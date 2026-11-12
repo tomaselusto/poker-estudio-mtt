@@ -34,15 +34,7 @@ Aplicación **estática, sin servidor ni base de datos**, para estudiar Texas Ho
 └── README.md
 ```
 
-## Actualizar el sitio Render ya existente
 
-1. Descomprimí el ZIP.
-2. Copiá **los cinco archivos de `public/`** al directorio `public/` del repositorio de GitHub existente. No elimines el resto de la configuración.
-3. Actualizá `README.md` y conservá `render.yaml`.
-4. Hacé **commit y push** a la rama que está conectada a Render. Si el despliegue automático está habilitado, Render actualizará el sitio.
-5. En Render, confirmá **Static Site**, `Publish Directory: public` y sin build de Node ni backend.
-
-Para un despliegue nuevo: Render → New → Static Site, conectar el repositorio, y usar como `Publish Directory` `public`. Alternativamente, Render → New → Blueprint con `render.yaml`.
 
 ## HTML autónomo / offline
 
