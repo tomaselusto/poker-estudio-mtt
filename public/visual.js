@@ -156,7 +156,7 @@
   };
   function preset(inst,key){
     const p=presets[key];if(!p)return;
-    const data=chooseData({st:p.stack,hero:p.hero,op:p.op||'UTG',amount:p.amount||2,prior:p.prior});
+    const data=chooseData({st:p.stack,hero:p.hero,op:p.op||'UTG',amount:p.amount||2,prior:p.prior,table:document.getElementById('tableMode')?.value||'8max'});
     const map=new Map();for(let i=0;i<HANDS_ALL.length;i++)if(p.action.includes(data.grid[i]))map.set(HANDS_ALL[i],1);
     updateRange(inst,map);
     const approximate=(data.kind!=='published'||data.approximate);

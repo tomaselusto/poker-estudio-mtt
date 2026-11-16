@@ -1,5 +1,5 @@
 /* Poker Estudio PWA - caché local de recursos estáticos para uso sin conexión. */
-const CACHE_NAME = 'poker-estudio-v3-1-20261112';
+const CACHE_NAME = 'poker-estudio-v4-6max-20261116';
 const APP_SHELL = [
   './', './index.html', './tools.css', './tools.js',
   './visual.css', './visual.js', './manifest.webmanifest',

@@ -205,14 +205,14 @@
  function renderRivalOpeners(){
   const pos=$t('rv-pos').value,action=$t('rv-action').value;
   $t('rv-opener-wrap').classList.toggle('hidden',!['threebet','call'].includes(action));
-  const allowed=POS.slice(0,POS.indexOf(pos)),prev=$t('rv-opener').value;
+  const available=activePositions(),allowed=available.slice(0,available.indexOf(pos)),prev=$t('rv-opener').value;
   $t('rv-opener').innerHTML=allowed.map(v=>`<option>${v}</option>`).join('');$t('rv-opener').value=allowed.includes(prev)?prev:allowed.includes('CO')?'CO':allowed.at(-1)||'';
  }
  function buildRival(){
   renderRivalOpeners();let pos=$t('rv-pos').value,action=$t('rv-action').value,stack=val('rv-stack'),op=$t('rv-opener').value;
   if((action==='rfi'||action==='shove')&&pos==='BB'){$t('rv-result').innerHTML='<div class="callout bad">BB no realiza RFI: ya existe la apuesta obligatoria. Elegí una posición anterior o la acción de call / 3-bet.</div>';$t('rv-grid').innerHTML='';latestRival=null;return;}
   if(['threebet','call'].includes(action)&&!op){$t('rv-result').innerHTML='<div class="callout bad">No hay una posición anterior válida para comparar.</div>';$t('rv-grid').innerHTML='';latestRival=null;return;}
-  const f={st:stack,hero:pos,op,amount:2,prior:['rfi','shove'].includes(action)?'rfi':'raise'};
+  const f={st:stack,hero:pos,op,amount:2,table:$t('tableMode').value,prior:['rfi','shove'].includes(action)?'rfi':'raise'};
   let source=chooseData(f),allowed=action==='rfi'?['R']:action==='shove'?['J']:action==='threebet'?['B','J']:['C'];
   // En RFI se incluyen también los shoves: una mano que abre puede subir o empujar.
   if(action==='rfi')allowed=['R','J'];
@@ -220,12 +220,13 @@
   let txt=rangeText(result),count=[...result.keys()].reduce((s,h)=>s+combos(h),0);
   latestRival=txt?{text:txt,map:result,source}:null;
   let approx=source.kind!=='published'||source.approximate;
-  const kind=approx?'Orientativo / aproximado':'Matriz de referencia';
+  const kind=$t('tableMode').value==='6max'?'Equivalencia 6-max':approx?'Orientativo / aproximado':'Matriz de referencia';
   $t('rv-result').innerHTML=`<div class="tagline"><span class="status-flag ${approx?'':'published'}">${kind}</span><span class="tag">Base ${source.base} BB</span></div><div class="metric-grid" style="margin-top:12px"><div class="metric"><small>Combos por acción predominante</small><strong>${fmtT(count)}</strong></div><div class="metric"><small>% de 1.326 manos</small><strong>${fmtP(count/1326)}</strong></div></div><p class="small-note">${enc(action==='rfi'?'Manos que hacen open raise o open shove':action==='shove'?'Solo manos que hacen open shove':action==='threebet'?'Manos que resuben (incluye 3-bet shove)':'Manos que pagan una apertura')} · ${enc(pos)} · ${fmtT(stack)} BB${['threebet','call'].includes(action)?' vs. '+enc(op):''}.</p>${txt?`<div class="result-list">${enc(txt)}</div>`:'<div class="callout warning">Este árbol no incluye manos con esa acción predominante. No debe interpretarse como que esa acción sea imposible.</div>'}<p class="small-note">${enc(source.note||'')} ${approx?'La estimación no es solver exacto para este cruce.':''} Las frecuencias mixtas no están disponibles: esta selección no representa un rango ponderado exacto.</p>`;
   $t('rv-grid').innerHTML=HANDS.map((h,i)=>{let on=result.has(h),a=source.grid[i];return `<button type="button" class="rival-hand${on?' on':''}${a==='J'?' shove':''}" title="${h} · ${LABELS[a]}" aria-label="${h} ${on?'incluida':'fuera'}">${h}</button>`;}).join('');
   for(const [i,b] of [...$t('rv-grid').children].entries())b.addEventListener('click',()=>{$t('rv-copy-status').textContent=HANDS[i]+' · '+LABELS[source.grid[i]]+' · '+combos(HANDS[i])+' combos sin blockers';});
  }
  for(const id of ['rv-stack','rv-pos','rv-action','rv-opener'])$t(id).addEventListener('change',buildRival);
+ document.addEventListener('poker:table-change',buildRival);
  $t('rv-refresh').addEventListener('click',buildRival);
  $t('rv-to-equity').addEventListener('click',()=>{if(!latestRival){buildRival();if(!latestRival)return;}$t('eq-mode').value='range';$t('eq-mode').dispatchEvent(new Event('change'));$t('eq-villain-range').value=latestRival.text;changeTab('equity');});
  $t('rv-to-combos').addEventListener('click',()=>{if(!latestRival){buildRival();if(!latestRival)return;}$t('co-range').value=latestRival.text;changeTab('combos');calcCombos();});

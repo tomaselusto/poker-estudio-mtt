@@ -1,3 +1,36 @@
+# Poker Estudio v4 — Mesas 6-max y 8-max
+
+## Novedad v4 (16/11/2026)
+
+- Selector global **Mesa del torneo: 8-max / 6-max**, visible en todos los módulos.
+- Posiciones dinámicas: **8-max = UTG, UTG+1, LJ, HJ, CO, BTN, SB, BB**; **6-max = UTG, HJ, CO, BTN, SB, BB**.
+- El visor de rangos, RFI, defensa frente a open/shove, tamaños de acción y estimador de rango rival responden a la mesa seleccionada.
+- **Importante:** la biblioteca existente era de 8-max. Para el modo 6-max se implementa una **equivalencia posicional** a partir del número de rivales por actuar: `UTG(6) → LJ(8)`, y `HJ/CO/BTN/SB/BB → misma posición(8)`. El programa marca todas esas pantallas como **aproximadas**, nunca como un solver 6-max exacto. La equivalencia preserva un ante de BB de 1 BB, tamaños de apuestas y stacks de la base. En ramas de defensa no documentadas sigue usando la heurística didáctica previa.
+- Cambio de nombre del caché PWA para que Render y los móviles reciban la versión nueva.
+- Se conservan los seis módulos y los dos selectores visuales del proyecto anterior.
+
+## Próxima etapa planificada: modalidades
+
+El modo actual utiliza **Vanilla / clásico chip EV sin bounty**. Para KO o PKO no se deben reutilizar los mismos rangos como si hubieran sido resueltos en esos formatos. La siguiente ampliación incluirá:
+
+- Selector de modalidad: **Vanilla, KO fijo, PKO progresivo**.
+- Valor del bounty del rival, bounty propio, porción en efectivo/porción progresiva, jugadores involucrados y quién cubre a quién.
+- Stacks en BB, número de jugadores vivos, estructura de pagos e ICM (cuando correspondan).
+- **KO fijo:** bounty fijo que cobra quien elimina. **PKO:** parte se cobra y parte se añade al bounty del eliminador, sujeto a reglas particulares del torneo.
+- Identificación separada de rangos **solucionados/importados** vs. ajustes **orientativos**. Nunca mostrar una supuesta frecuencia GTO exacta de PKO sin una solución apropiada.
+
+## Despliegue Render / GitHub
+
+Conservá `public/`, `render.yaml` y `README.md` en la raíz del repositorio conectado a Render. Actualizá los archivos, hacé commit y push a `main`. El Static Site publica `public`. La aplicación no requiere backend.
+
+## Verificaciones
+
+- `node --check`: JS externo e inline sin errores sintácticos.
+- Pruebas automatizadas de mapeo de todas las aperturas por posición a 10, 15, 20, 40 y 50 BB, combinaciones de mano y tabla de 169 casillas.
+- **Limitación de la validación aquí:** no fue posible ejecutar pruebas de interacción de navegador porque la instancia de Chromium del entorno bloquea navegación local; realizar una prueba visual y móvil después del despliegue.
+
+---
+
 # Poker Estudio v3 — Laboratorio interactivo de MTT
 
 Aplicación **estática, sin servidor ni base de datos**, para estudiar Texas Hold'em MTT 8-max. Se ejecuta con HTML, CSS y JavaScript en el navegador.
@@ -34,7 +67,15 @@ Aplicación **estática, sin servidor ni base de datos**, para estudiar Texas Ho
 └── README.md
 ```
 
+## Actualizar el sitio Render ya existente
 
+1. Descomprimí el ZIP.
+2. Copiá **los cinco archivos de `public/`** al directorio `public/` del repositorio de GitHub existente. No elimines el resto de la configuración.
+3. Actualizá `README.md` y conservá `render.yaml`.
+4. Hacé **commit y push** a la rama que está conectada a Render. Si el despliegue automático está habilitado, Render actualizará el sitio.
+5. En Render, confirmá **Static Site**, `Publish Directory: public` y sin build de Node ni backend.
+
+Para un despliegue nuevo: Render → New → Static Site, conectar el repositorio, y usar como `Publish Directory` `public`. Alternativamente, Render → New → Blueprint con `render.yaml`.
 
 ## HTML autónomo / offline
 
