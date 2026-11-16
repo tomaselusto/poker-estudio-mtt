@@ -1,0 +1,22 @@
+/* Poker Estudio v4.3 - constructor de rangos cEV y comparación por modalidad */
+.rg-toolbar{display:flex;flex-wrap:wrap;gap:9px;align-items:end;margin:12px 0 10px}
+.rg-toolbar label{display:grid;gap:5px;color:#c4d5e7;font-size:12px;flex:1;min-width:195px}
+.rg-toolbar select{background:#102437;border:1px solid #43627c;color:#e6f5ff;padding:10px;border-radius:9px;min-height:43px}
+.rg-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0}
+.rg-card{border:1px solid #36536b;background:#102539;border-radius:11px;padding:11px;min-width:0}
+.rg-card strong{display:block;font-size:23px;color:#f3fcff;font-variant-numeric:tabular-nums}
+.rg-card small{color:#b3c8dc;font-size:10px}
+.rg-card b{font-size:12px;color:#ddf5e8}
+.rg-card.active{border-color:#73bba7;background:#143a39}
+.rg-strip{height:11px;display:flex;gap:2px;overflow:hidden;border-radius:20px;background:#203448;margin:10px 0}
+.rg-strip>div{height:100%}
+.rg-list{max-height:148px;overflow-y:auto;line-height:1.65;border-radius:10px;background:#0e1d2c;border:1px solid #30465a;padding:10px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;color:#ddf2ff;overflow-wrap:anywhere}
+.rg-label{font-size:12px;color:#b6cedf;margin:9px 0 5px;display:block}
+.rg-delta{font-size:12px;line-height:1.55;color:#bcd5e6;border-left:3px solid #4da882;background:#102f36;padding:10px 12px;border-radius:7px}
+.rg-matrix-highlights .decision-cell.delta-new{background:#226f78;color:#f5ffff;border-color:#75d6c6}
+.rg-matrix-highlights .decision-cell.delta-possible{background:#66502a;color:#fff0d0;border-color:#a7833e}
+.rg-matrix-highlights .decision-cell.delta-other{background:#202f3e;color:#9aafc3}
+.rg-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.rg-actions button{min-height:42px}
+.rg-muted{font-size:11px;color:#a7bbce;line-height:1.5}
+@media(max-width:600px){.rg-stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.rg-card{padding:8px 7px}.rg-card strong{font-size:18px}.rg-toolbar label{min-width:100%}}
