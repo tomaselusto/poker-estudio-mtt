@@ -1,8 +1,8 @@
 /* Poker Estudio PWA - caché local de recursos estáticos para uso sin conexión. */
-const CACHE_NAME = 'poker-estudio-v4-6max-20261116';
+const CACHE_NAME = 'poker-estudio-v4-1-bounty-20261116';
 const APP_SHELL = [
   './', './index.html', './tools.css', './tools.js',
-  './visual.css', './visual.js', './manifest.webmanifest',
+  './visual.css', './visual.js', './bounty.css', './bounty-core.js', './bounty.js', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'
 ];
 self.addEventListener('install', event => {

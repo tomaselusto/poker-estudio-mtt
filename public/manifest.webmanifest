@@ -2,7 +2,7 @@
   "id": "./",
   "name": "Poker Estudio · Laboratorio MTT",
   "short_name": "Poker Estudio",
-  "description": "Rangos preflop y calculadoras de equity, pot odds y combinatoria para estudiar MTT.",
+  "description": "Laboratorio de MTT 6-max y 8-max: Vanilla, KO, PKO, equity, rangos, combinatoria y análisis de bounties.",
   "lang": "es-AR",
   "start_url": "./",
   "scope": "./",

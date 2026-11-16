@@ -143,6 +143,7 @@
  function resultEquity(res,description){
   const n=res.total,eq=(res.win+.5*res.tie)/n,tie=res.tie/n,won=res.win/n,loss=res.lose/n,se=res.exact?0:1.96*Math.sqrt(Math.max(0,(res.sumSquares/n-eq*eq))/n);
   lastEquity=eq;
+  document.dispatchEvent(new CustomEvent('poker:equity-updated',{detail:{equity:eq,win:won,tie}}));
   $t('eq-result').innerHTML=`<div class="metric-grid"><div class="metric"><small>Equity Hero</small><strong class="ok-text">${fmtP(eq)}</strong></div><div class="metric"><small>Equity rival</small><strong>${fmtP(1-eq)}</strong></div><div class="metric"><small>Victoria / derrota</small><strong style="font-size:17px">${fmtP(won)} / ${fmtP(loss)}</strong></div><div class="metric"><small>Empates</small><strong>${fmtP(tie)}</strong></div></div><div class="callout"><strong>${res.exact?'Cálculo exacto':`Monte Carlo (${fmtT(n)} muestras)`}</strong><div>${res.exact?'Se enumeraron todos los boards restantes legalmente posibles.':`Margen estadístico estimado 95%: ±${fmtP(se)} (solo error de muestreo).`}</div></div><p class="mini-formula">Equity Hero = [victorias + 0,5 × empates] / ${fmtT(n)} = ${fmtP(eq)}</p><p class="hint">${enc(description)}. No implica automáticamente call o 3-bet +EV: el resultado supone que ambas manos llegan al showdown y no incorpora folds ni apuestas futuras.</p>`;
   $t('eq-status').textContent='Resultado actualizado. Podés usarlo en Pot odds.';
  }
