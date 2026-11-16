@@ -2,7 +2,7 @@
   "id": "./",
   "name": "Poker Estudio · Laboratorio MTT",
   "short_name": "Poker Estudio",
-  "description": "Laboratorio MTT 6-max/8-max Vanilla, KO y PKO, con análisis de calls y reshoves, rangos, equity y combinatoria.",
+  "description": "Laboratorio MTT 6-max/8-max Vanilla, KO y PKO, con rangos por EV e ICM, equity y combinatoria.",
   "lang": "es-AR",
   "start_url": "./",
   "scope": "./",

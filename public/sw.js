@@ -1,8 +1,8 @@
 /* Poker Estudio PWA - caché local de recursos estáticos para uso sin conexión. */
-const CACHE_NAME = 'poker-estudio-v4-3-range-builder-20261116';
+const CACHE_NAME = 'poker-estudio-v4-4-icm-20261116';
 const APP_SHELL = [
   './', './index.html', './tools.css', './tools.js',
-  './visual.css', './visual.js', './bounty.css', './bounty-core.js', './bounty.js', './decision.css', './decision-core.js', './decision.js', './range-report-core.js', './range-report.css', './manifest.webmanifest',
+  './visual.css', './visual.js', './icm.css', './icm-core.js', './icm.js', './bounty.css', './bounty-core.js', './bounty.js', './decision.css', './decision-core.js', './decision.js', './range-report-core.js', './range-report.css', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png'
 ];
 self.addEventListener('install', event => {

@@ -1,49 +1,58 @@
-# Poker Estudio v4.3 — Constructor de rangos por EV estimado (KO/PKO)
+# Poker Estudio v4.4 — ICM integrado a rangos KO/PKO
 
-Incluye **todo el laboratorio anterior** (RFI 6-max/8-max, equity, combinatoria, odds, bounty, análisis de call / reshove) y agrega una comparación completa entre rangos de **Vanilla, KO y PKO** usando **las mismas muestras de equity**.
+Conserva todas las funciones de v4.3: RFI 6-max/8-max, Vanilla / KO / PKO, equity, pot odds, odds implícitas, combinatoria, bounty y constructor de rangos por cEV. **Nuevo:** módulo de **ICM / $EV** conectado a las 169 clases del constructor anterior.
 
-## Cómo utilizar
+## Método
 
-1. Elegí 6-max u 8-max, modalidad y abrí **Decisiones KO/PKO**.
-2. Indicá *call vs shove* o *reshove vs open*; los stacks, costo del call o tamaño de la apuesta, pozo y cobertura.
-3. Cargá un **rango de shove rival** para call o el **rango con que el rival paga el reshove**. La frecuencia de fold al reshove debe ser coherente con ese rango.
-4. Configurá la recompensa (en KO: totalidad del bounty; en PKO: porción inmediata) y conversión Bounty Power.
-5. Pulsá **Calcular matriz completa** para una exploración de 169 clases de manos (480 muestras por clase); seleccioná una mano y refiná a 14.000 muestras, o usá **Refinar fronterizas** (máximo 25 clases, 4.000 muestras cada una).
-6. En **Matriz y recomendación según modalidad** alterná Vanilla / KO / PKO, o compará diferencias KO→Vanilla y PKO→Vanilla. Las clases verdes pasan de EV negativo a positivo **según los supuestos**.
-7. Copiá el rango favorable como texto o exportá un CSV con EV y equity de cada clase para las tres modalidades.
+- ICM Malmuth–Harville sobre **todo el conjunto de jugadores que siguen vivos**, 2–12 sobrevivientes. Utiliza probabilidades recursivas optimizadas por subconjuntos; computa equidad monetaria de los **premios regulares** (1.º a N.º), incluyendo cobros de puestos eliminados.
+- Cada jugador se carga con **su stack fuera del pozo en el instante de decisión**. El pozo se carga una sola vez por separado y ya contiene ciegas/antes/apuestas de otros jugadores. Se comprueba conservación de fichas en fold/ganar/perder/empatar.
+- En **call a all-in**, el rival tiene 0 BB fuera del pozo. Se muestra valor ICM de foldear, ganar, perder, empatar; equity necesaria de cEV y $EV, y prima de riesgo ICM.
+- En **reshove contra apertura**, Hero puede tener una cobertura mayor o menor que la del rival. El sistema devuelve fichas no igualadas y contabiliza fold equity separadamente; el rival no está eliminado cuando conserva fichas.
+- En KO y PKO, solo el **bounty inmediato** en dinero se suma cuando Hero efectivamente elimina al rival. La parte transferida al propio bounty en PKO se presenta, pero **no se valora automáticamente**.
+- La matriz de 169 clases reutiliza las probabilidades de ganar y empatar de «Decisiones KO/PKO», calculadas por Monte Carlo. Señala +$EV, −$EV, frontera, +cEV/−$EV y permite CSV de comparación.
 
-## Cómo interpretar
+## Uso paso a paso
 
-- **Verde:** EV de la acción mayor que cero con un margen estadístico aproximado de 95% (modelo condicional cEV heads-up).
-- **Ámbar:** intervalo estadístico incluye EV=0; no implica mezcla GTO.
-- **Rojo:** EV negativo respecto de fold, dentro de los supuestos.
-- El % favorable es combinaciones (6 parejas, 4 suited, 12 offsuit) sobre **1326**, no porcentaje del RFI ni frecuencia óptima.
-- En modo **diferencia**, verde exige EV Vanilla negativo y KO/PKO positivo con suficiente margen. Ámbar indica Vanilla fronterizo y KO/PKO positivo.
-- En **reshove** se muestra también el fold mínimo estimado del rival para que el reshove alcance EV >= 0, usando el rango de call declarado.
-- En **aislamiento** solo se muestra EV condicionado a quedar heads-up. **NO evalúa** a los jugadores restantes; no usar el resultado como recomendación completa de aislar.
-- PKO **NO** monetiza automáticamente el bounty progresivo transferido a la propia cabeza.
+1. En «Decisiones KO/PKO», configurá *call contra open shove* o *reshove contra open raise* y un **rango rival** editable. Pulsá «Calcular matriz completa».
+2. Elegí «🏆 Analizar esta matriz con ICM» para ir al nuevo módulo e importar las 169 probabilidades.
+3. Cargá los **stacks restantes de todos los participantes del torneo**. Las dos primeras filas son Hero y rival. Es importante no cargar solo la mesa si quedan otras mesas jugando.
+4. Cargá los **premios de 1.º a último puesto restante**, en orden descendente, incluyendo premios de 0 si corresponde. La moneda es libre, pero tiene que ser consistente con la del bounty.
+5. Verificá pozo, call u open, frecuencia de fold al reshove, modalidad, cantidad total del bounty y parte inmediata en PKO. Pulsá «Calcular ICM y $EV» si modificaste el escenario.
+6. Consultá en la matriz la vista de $EV, cEV o «+cEV pero −$EV»; clickeá cada mano para mostrar EV, muestra y señal de incertidumbre. Exportá CSV para estudiar.
 
-**No es un solver GTO, no incluye ICM, dinámica completa de árboles, equity realization postflop, value de recompensas futuras ni distribución real de rivales.** No convierte una mano +cEV en una estrategia óptima. No usar software de ayuda en una mano en curso si las normas del torneo lo prohíben.
+## Ejemplo precargado, no un torneo real
 
-## Actualización en Render
+6 jugadores; stacks fuera del pozo: 25 / 0 / 27 / 21 / 17 / 13 BB; pozo 15,5 BB; Hero paga 12 BB; premios de 1.º a 6.º: 2500 / 1600 / 1100 / 800 / 600 / 400. Si Hero tiene 40% de victorias y 0% de empates, el umbral **chip EV** es 43,64%, pero el umbral **ICM** de los premios es aprox. 49,7% (Vanilla). Cambiar a KO/PKO y un bounty cobrable modifica el umbral monetario.
 
-Descomprimí el ZIP, copiá **todo el contenido de `public/`** al directorio `public/` del repositorio local que ya tenés, conservá `render.yaml`, y corré:
+## Advertencias que importan
+
+- El ICM de premios es **exacto dentro del modelo Malmuth–Harville**, no una predicción exacta del torneo. No incluye habilidad, posiciones, ICM de otras mesas desconocidas, future game, ni árboles de respuesta óptima.
+- **No cubre 13 o más jugadores restantes**, ni aislamiento con jugadores detrás, side pots, múltiples bounties, ni casos multiway.
+- La matriz importada se basa en equity **estimada por Monte Carlo**, rangos arbitrados por el usuario y una frecuencia de fold al reshove externa al modelo. Un resultado favorable **no es una prescripción GTO**. Las bandas de 95% reflejan solo incertidumbre del muestreo.
+- En PKO, la parte futura de recompensas recibidas en la cabeza de Hero puede tener valor, pero **no está integrada** en el $EV. Es un límite especialmente importante cerca del final de torneos PKO.
+- El cálculo de $EV usa un solo pozo heads-up plenamente disputado. No extrapolarlo a situaciones con múltiples pozos o acciones detrás.
+- No utilizar software de asistencia en manos en curso si el reglamento del torneo lo prohíbe.
+
+## Render — Actualizar sitio existente
+
+Descomprimí el ZIP, copiá todo el contenido de `public/` a la carpeta `public/` de tu repo `poker-estudio-mtt`, conservando `render.yaml`:
 
 ```bash
 git add .
-git commit -m "Poker Estudio v4.3 - rangos de call y reshove KO PKO"
+git commit -m "Poker Estudio v4.4 - ICM y rangos por valor monetario"
 git push origin main
 ```
 
-Tipo de servicio: **Static Site**; `Publish Directory`: `public`. El caché PWA ya fue actualizado de versión.
+Render Static Site: Publish Directory = `public`. No hace falta backend ni base de datos. El service worker usa versión de caché nueva; si el celular mantiene la anterior, cerrá y reabrí la PWA después de actualizar.
 
-### Comprobaciones
+## Validación
 
-- Validación matemática con casos controlados: 169 clases/1326 combos, Vanilla–KO–PKO, no cobertura, empates, umbral de folds.
-- JavaScript validado con `node --check`, estructura y archivos ZIP verificados.
-- El navegador automatizado del entorno bloquea localhost y file:// por política, por lo que los tests de interacción real deberán hacerse en Chrome/Render. El HTML autónomo también permite probar el visor sin servidor.
+- Tests del núcleo: ICM simétrico, ganador se lleva todo, jugador eliminado, conservación de premios y fichas, llamadas, reshoves, PKO con bounty inmediato, 100 estructuras aleatorias.
+- Prueba en navegador del escenario, cambio Vanilla/KO/PKO, validación de premios, presets de 6 y 8 jugadores, simulación de las 169 manos, importación a ICM, selección de mano y reshove.
+- `node --check` de todos los JS; HTML standalone con archivos incrustados sin dependencias de red; ZIP verificado.
 
-## Fuentes
+## Referencias
 
-- https://blog.gtowizard.com/the-theory-of-progressive-knockout-tournaments/
-- https://blog.gtowizard.com/bounty-models-explained-solving-knockout-tournaments/
+- https://blog.gtowizard.com/icm-basics/
+- https://www.pokerstrategy.com/strategy/sit-and-go/chip-value-independent-icm-model/
+- https://www.icmizer.com/en/blog/progressive-knockout-strategy/

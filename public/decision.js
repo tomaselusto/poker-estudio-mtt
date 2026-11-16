@@ -239,5 +239,6 @@
   $('dm-status').textContent='Configurá rango y recompensa, después calculá la matriz.';
  }
  init();
- window.PokerEstudioDecision={simulate,preset,run};
+ window.PokerEstudioDecision={simulate,preset,run,getSnapshot:()=>results.size&&currentData?{statsMap:new Map([...results].map(([hand,v])=>[hand,{...v.stats}])),args:{...currentData.args},rangeText:$('dm-range').value,spot:currentData.args.spot}:null};
+  $('dm-open-icm')?.addEventListener('click',()=>{document.querySelector('[data-tab="icm"]')?.click();window.PokerEstudioICM?.importFromDecision();});
 })();
