@@ -1,0 +1,33 @@
+/* Poker Estudio v4.2 · extensión móvil, mantiene el diseño previo */
+.decision-layout{display:grid;grid-template-columns:minmax(320px,0.92fr) minmax(0,1.08fr);gap:15px;align-items:start}
+.decision-settings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.decision-settings .field{min-width:0}
+.decision-settings .field.wide{grid-column:1/-1}
+.decision-settings input,.decision-settings select,.decision-settings textarea{width:100%;min-width:0;box-sizing:border-box}
+.decision-settings textarea{min-height:82px;resize:vertical}
+.decision-tag{color:#a4c2d8;font-size:12px;line-height:1.55;margin:6px 0 12px}
+.decision-matrix-wrap{overflow-x:auto;overflow-y:hidden;padding-bottom:8px}
+.decision-matrix{display:grid;grid-template-columns:repeat(13,minmax(28px,1fr));gap:3px;min-width:385px}
+.decision-cell{padding:0;min-width:0;aspect-ratio:1.15;border-radius:5px;border:1px solid #324a61;background:#172b3c;color:#9eb6c9;cursor:pointer;font-size:clamp(9px,0.87vw,11px);font-weight:750;position:relative}
+.decision-cell.positive{background:#185744;color:#f6fff9;border-color:#287d5e}
+.decision-cell.negative{background:#52353f;color:#ffebee;border-color:#754654}
+.decision-cell.borderline{background:#66502a;color:#fff0d0;border-color:#a7833e}
+.decision-cell.selected{outline:2px solid #a6ddff;outline-offset:1px;z-index:1}
+.decision-cell:focus-visible{outline:3px solid #a6ddff}
+.decision-legend{display:flex;flex-wrap:wrap;gap:12px;font-size:11px;color:#afc6d8;margin:10px 0}
+.decision-legend span{display:flex;align-items:center;gap:5px}
+.decision-legend i{width:11px;height:11px;border-radius:3px;background:#185744;display:block}
+.decision-legend .fail i{background:#52353f}.decision-legend .mix i{background:#66502a}.decision-legend .unknown i{background:#172b3c}
+.decision-progress{height:6px;border-radius:9px;background:#14293d;overflow:hidden;margin-top:8px}.decision-progress>div{height:100%;width:0%;background:#44b595;transition:width .12s}
+.decision-big{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:10px 0}
+.decision-big>div{padding:12px;background:#102437;border-radius:10px;border:1px solid #2b475d}
+.decision-big small{font-size:11px;color:#a3b7c9;display:block;margin-bottom:6px}
+.decision-big strong{font-size:21px;color:#edf8ff}
+.decision-method{border:1px solid #466676;padding:10px;border-radius:9px;background:#102535;font-size:12px;line-height:1.6;color:#c6e4f4}
+.decision-btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.decision-btn-row button:disabled{opacity:.5;cursor:wait}
+.decision-source{font-size:11px;color:#9db4c8;line-height:1.6}
+@media(max-width:920px){.decision-layout{grid-template-columns:1fr}}
+@media(max-width:600px){.decision-settings{grid-template-columns:1fr 1fr;gap:9px}.decision-big strong{font-size:17px}.decision-matrix{min-width:385px}.decision-cell{font-size:10px}.decision-btn-row button{flex:1}}
+
+#tool-decision [hidden]{display:none!important}
